@@ -1,9 +1,17 @@
 services:
+  product-viewer:
+    build: .
+    container_name: product-viewer
+    command: npm run start
+    ports:
+      - '${SERVER_PORT}:${SERVER_PORT}'
+      - '${WS_PORT}:${WS_PORT}'
+    restart: always
   redis:
     image: redis:latest
     container_name: redis
     ports:
-      - '6379:6379'
+      - '${REDIS_PORT}:6379'
     command: redis-server --requirepass ${REDIS_PASS}
     volumes:
       - redis_data:/data
